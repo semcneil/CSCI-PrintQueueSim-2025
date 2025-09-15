@@ -167,8 +167,8 @@ def simulation(numSeconds, pagesPerMinute):
     maxWait = max(waitingtimes)
     medianWait = median(waitingtimes)
     minWait = min(waitingtimes)
-    # print(f'(min,avg,max,median) weight times ({minWait},\t{averageWait:.1f},\t{maxWait:.1f},\t{medianWait:.1f})')
-    print("Average Wait %6.2f secs %3d tasks remaining."%(averageWait,printQueue.size()))
+    print(f'(min,avg,max,median) weight times ({minWait},\t{averageWait:.1f},\t{maxWait:.1f},\t{medianWait:.1f})')
+    # print("Average Wait %6.2f secs %3d tasks remaining."%(averageWait,printQueue.size()))
 
 def newPrintTask():
     """
@@ -188,8 +188,17 @@ def newPrintTask():
 """
 Run 10 simulations
 """
-for i in range(10):
-    simulation(3600,5)
+for jj in range(5,11):
+    print('='*10 + f'Starting {jj}:')
+    for ii in range(10):
+        simulation(3600,jj)
 
 # create graph of tasks in queue vs time
 # create graph of pages in queue vs time
+# amount of tasks completed
+# largest print queue size
+# How long documents were
+# Color vs BW
+# Paper size
+# add amount of paper remaining
+# add ink amount
