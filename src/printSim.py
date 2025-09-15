@@ -10,6 +10,7 @@ https://runestone.academy/ns/books/published/pythonds/BasicDS/SimulationPrinting
 
 from pythonds.basic import Queue  # basic queue class for simulating the print queue
 import random  # used to simulate random processes 
+from numpy import median
 
 class Printer:
     """
@@ -153,13 +154,20 @@ def simulation(numSeconds, pagesPerMinute):
          printQueue.enqueue(task)
 
       if (not labprinter.busy()) and (not printQueue.isEmpty()):
-        nexttask = printQueue.dequeue()
-        waitingtimes.append( nexttask.waitTime(currentSecond))
-        labprinter.startNext(nexttask)
+        """
+        If printer is not busy and queue is not empty, start printer on new task
+        """
+        nexttask = printQueue.dequeue()  # get the next task from the queue
+        waitingtimes.append( nexttask.waitTime(currentSecond))  # collect how long the task has been waiting in queue
+        labprinter.startNext(nexttask)  # start the printer on the task
 
-      labprinter.tick()
+      labprinter.tick() # increment the simulation clock
 
     averageWait=sum(waitingtimes)/len(waitingtimes)
+    maxWait = max(waitingtimes)
+    medianWait = median(waitingtimes)
+    minWait = min(waitingtimes)
+    # print(f'(min,avg,max,median) weight times ({minWait},\t{averageWait:.1f},\t{maxWait:.1f},\t{medianWait:.1f})')
     print("Average Wait %6.2f secs %3d tasks remaining."%(averageWait,printQueue.size()))
 
 def newPrintTask():
